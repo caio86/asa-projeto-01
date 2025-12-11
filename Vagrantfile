@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.trigger.before :"Vagrant::Action::Builtin::WaitForCommunicator", type: :action do |t|
-    t.warn = "Iterrompe o servidor dhcp do virtualbox"
+    t.warn = "Interrompe o servidor dhcp do virtualbox"
     t.run = {inline: "VBoxManage dhcpserver stop --interface vboxnet0"}
   end
 
