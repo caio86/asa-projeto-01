@@ -25,7 +25,7 @@ Vagrant.configure("2") do |config|
 
   config.trigger.before :"Vagrant::Action::Builtin::WaitForCommunicator", type: :action do |t|
     t.warn = "Iterrompe o servidor dhcp do virtualbox"
-    t.run = {inline: "vboxmanage dhcpserver stop --interface vboxnet0"}
+    t.run = {inline: "VBoxManage dhcpserver stop --interface vboxnet0"}
   end
 
 
@@ -47,7 +47,7 @@ Vagrant.configure("2") do |config|
   # Servidor de aplicação
   config.vm.define "app" do |app|
     app.vm.hostname = "app.#{nome1}.#{nome2}.devops"
-    db.vm.network :private_network, mac: "0800273A0002", type: "dhcp"
+    app.vm.network :private_network, mac: "0800273A0002", type: "dhcp"
   end
 
   # Host Cliente
