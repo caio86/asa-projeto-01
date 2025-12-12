@@ -1,0 +1,24 @@
+- name: Instala o servidor dhcp
+  package:
+    name: isc-dhcp-server
+    state: present
+
+- name: Copia o arquivo de configuração dhcp
+  copy:
+    src: "dhcpd.conf"
+    dest: "/etc/dhcp/dhcpd.conf"
+    mode: 0644
+  notify: restart dhcp
+
+- name: Ajusta a configuração default do dhcp.
+  lineinfile:
+    dest: "/etc/default/isc-dhcp-server"
+    regexp: "^INTERFACESv4"
+    line: 'INTERFACESv4="{{ dhcp_interface }}"'
+    state: present
+  notify: restart dhcp
+
+- name: Habilita o servidor dhcp
+  service:
+    name: isc-dhcp-server
+    enabled: yes

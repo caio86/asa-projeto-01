@@ -3,3 +3,9 @@
   become: true
   roles:
     - base
+
+- name: Configurações especificas de arq
+  hosts: arq
+  become: true
+  roles:
+    - dhcp_server
