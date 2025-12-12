@@ -1,0 +1,20 @@
+- name: Create "ifpb" group
+  group:
+    name: ifpb
+    state: present
+
+- name: Create users
+  user:
+    name: "{{ item.name }}"
+    password: "{{ item.password | password_hash('sha512') }}"
+    groups: "{{ item.groups | default(['ifpb']) }}"
+    create_home: true
+    generate_ssh_key: true
+    shell: /bin/bash
+    state: present
+  loop: "{{ users }}"
+
+- name: Enable sudo for "ifpb" group
+  copy:
+    content: "%ifpb ALL=(ALL) NOPASSWD: ALL"
+    dest: "/etc/sudoers.d/90-ifpb-sudo"

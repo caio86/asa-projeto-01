@@ -1,0 +1,9 @@
+users:
+  - name: caio
+    password: ifpb
+    groups:
+      - ifpb
+  - name: gabriel
+    password: ifpb
+    groups:
+      - ifpb

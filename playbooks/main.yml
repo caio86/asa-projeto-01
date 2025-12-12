@@ -3,10 +3,12 @@
   become: true
   roles:
     - base
+    - user-create
+    - time-config
 
 - name: Configurações especificas de arq
   hosts: arq
   become: true
   roles:
-    - dhcp_server
-    - dns_server
+    - dhcp-server
+    - dns-server
