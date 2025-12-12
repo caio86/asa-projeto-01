@@ -1,0 +1,41 @@
+- name: Instala o servidor bind9 e bind9utils
+  package:
+    name:
+      - bind9
+      - bind9utils
+    state: present
+
+- name: Copia o arquivo de configuração named.conf.options.
+  copy:
+    src: "named.conf.options"
+    dest: "/etc/bind/named.conf.options"
+    mode: 0664
+  notify: restart bind
+
+- name: Copia o arquivo de configuração named.conf.internal-zones.
+  copy:
+    src: "named.conf.internal-zones"
+    dest: "/etc/bind/named.conf.internal-zones"
+    mode: 0664
+  notify: restart bind
+
+- name: Copia o arquivo de zona direta do DNS caio.gabriel.devops.db.
+  copy:
+    src: "caio.gabriel.devops.db"
+    dest: "/etc/bind/caio.gabriel.devops.db"
+    mode: 0664
+  notify: restart bind
+
+- name: Copia o arquivo de zona reversa do DNS 56.168.192.db.
+  copy:
+    src: "56.168.192.db"
+    dest: "/etc/bind/56.168.192.db"
+    mode: 0664
+  notify: restart bind
+
+- name: Ajusta a configuração default do bind9 para incluir zonas internas.
+  lineinfile:
+    dest: "/etc/bind/named.conf"
+    line: 'include "/etc/bind/named.conf.internal-zones";'
+    state: present
+  notify: restart bind

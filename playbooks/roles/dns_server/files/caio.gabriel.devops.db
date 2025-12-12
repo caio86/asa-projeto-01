@@ -1,0 +1,12 @@
+$TTL 86400
+@ IN SOA arq.caio.gabriel.devops. root.caio.gabriel.devops (
+    2025082501  ;Serial
+    3600        ;Refresh
+    1800        ;Retry
+    604800      ;Expire
+    86400       ;Minimum TTL
+)
+    IN  NS  arq.caio.gabriel.devops.
+arq IN  A   192.168.56.122
+db  IN  A   192.168.56.132
+app IN  A   192.168.56.123

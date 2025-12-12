@@ -9,3 +9,4 @@
   become: true
   roles:
     - dhcp_server
+    - dns_server
