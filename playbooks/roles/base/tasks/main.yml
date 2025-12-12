@@ -1,4 +1,10 @@
-- name: update cache
+- name: update and upgrade system
   package:
     update_cache: true
     cache_valid_time: 3600
+    upgrade: "{{ upgrade }}"
+
+- name: Install NFS client
+  package:
+    name: nfs-common
+    state: present
