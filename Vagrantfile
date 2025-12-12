@@ -4,6 +4,7 @@
 nome1 = "caio"
 nome2 = "gabriel"
 xx = 22
+yy = 32
 
 Vagrant.configure("2") do |config|
   config.vm.box = "debian/bookworm64"
@@ -28,6 +29,10 @@ Vagrant.configure("2") do |config|
     t.run = {inline: "VBoxManage dhcpserver stop --interface vboxnet0"}
   end
 
+  config.vm.provision "ansible" do |ansible|
+    ansible.compatibility_mode = "2.0"
+    ansible.playbook = "playbooks/main.yml"
+  end
 
   # Servidor de arquivos
   config.vm.define "arq" do |arq|

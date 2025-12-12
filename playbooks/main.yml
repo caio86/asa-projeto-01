@@ -1,0 +1,5 @@
+- name: Configurações genericas
+  hosts: all
+  become: true
+  roles:
+    - base
