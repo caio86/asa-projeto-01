@@ -38,7 +38,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "arq" do |arq|
     arq.vm.hostname = "arq.#{nome1}.#{nome2}.devops"
     arq.vm.network :private_network, ip: "192.168.56.1#{xx}"
-    (0..3).each do |x|
+    (0..2).each do |x|
       arq.vm.disk :disk, size: "10GB", name: "disk-#{x}"
     end
   end

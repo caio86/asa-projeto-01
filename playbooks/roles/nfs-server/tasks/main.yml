@@ -1,0 +1,40 @@
+- name: Install nfs server
+  package:
+    name: nfs-kernel-server
+    state: present
+
+- name: Enable nfs server
+  service:
+    name: nfs-kernel-server
+    state: started
+    enabled: true
+
+- name: Create directory
+  file:
+    path: "{{ nfs_dir }}"
+    owner: "{{ nfs_user }}"
+    group: "{{ nfs_group }}"
+    mode: 2750
+    state: directory
+
+- name: Get UID of {{ nfs_user }}
+  ansible.builtin.command: id -u {{ nfs_user }}
+  register: uid
+  changed_when: false
+
+- name: Get GID of {{ nfs_group }}
+  ansible.builtin.command: id -g {{ nfs_group }}
+  register: gid
+  changed_when: false
+
+- name: Store UID & GID
+  ansible.builtin.set_fact:
+    nfs_uid: "{{ uid.stdout }}"
+    nfs_gid: "{{ gid.stdout }}"
+
+- name: Configure exports
+  copy:
+    content: "{{ nfs_dir }} {{ item }}(rw,sync,no_subtree_check,all_squash,anonuid={{ nfs_uid }},anongid={{ nfs_gid }})"
+    dest: "/etc/exports"
+  loop: "{{ nfs_client }}"
+  notify: restart nfs

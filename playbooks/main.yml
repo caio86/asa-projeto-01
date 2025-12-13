@@ -14,3 +14,12 @@
     - dhcp-server
     - dns-server
     - lvm-config
+    - role: user-create
+      vars:
+        users:
+          - name: nfs-ifpb
+            password: ifpb
+            group: nfs-ifpb
+            shell: /usr/sbin/nologin
+            system: true
+    - nfs-server

@@ -1,0 +1,5 @@
+nfs_dir: "/dados/nfs"
+nfs_client:
+  - 192.168.56.0/24
+nfs_user: nfs-ifpb
+nfs_group: nfs-ifpb
