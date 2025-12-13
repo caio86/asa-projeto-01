@@ -13,3 +13,4 @@
   roles:
     - dhcp-server
     - dns-server
+    - lvm-config

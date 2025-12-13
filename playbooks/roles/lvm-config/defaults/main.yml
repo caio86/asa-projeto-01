@@ -1,0 +1,12 @@
+disks:
+  - /dev/sdb
+  - /dev/sdc
+  - /dev/sdd
+
+vg_name: dados
+
+logical_volumes:
+  - name: ifpb
+    size: 15G
+    fstype: ext4
+    mount: /dados

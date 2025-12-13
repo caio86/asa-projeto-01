@@ -1,0 +1,35 @@
+- name: Instala lvm2
+  package:
+    name: lvm2
+    state: present
+
+- name: Cria Volume físico
+  community.general.lvm_pv:
+    device: "{{ item }}"
+  loop: "{{ disks }}"
+
+- name: Cria Grupo de Volume
+  community.general.lvg:
+    vg: "{{ vg_name }}"
+    pvs: "{{ disks }}"
+
+- name: Cria Volume lógico
+  community.general.lvol:
+    lv: "{{ item.name }}"
+    vg: "{{ vg_name }}"
+    size: "{{ item.size }}"
+  loop: "{{ logical_volumes }}"
+
+- name: Cria filesystem
+  filesystem:
+    fstype: "{{ item.fstype }}"
+    dev: "/dev/{{ vg_name }}/{{ item.name }}"
+  loop: "{{ logical_volumes }}"
+
+- name: Montar volume
+  mount:
+    path: "{{ item.mount }}"
+    src: "/dev/{{ vg_name }}/{{ item.name }}"
+    fstype: "{{ item.fstype }}"
+    state: mounted
+  loop: "{{ logical_volumes }}"
