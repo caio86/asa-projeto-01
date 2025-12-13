@@ -1,0 +1,22 @@
+- name: install autofs
+  package:
+    name: autofs
+    state: present
+
+- name: enable autofs service
+  service:
+    name: autofs
+    state: started
+    enabled: true
+
+- name: configure auto.master
+  lineinfile:
+    path: /etc/auto.master
+    line: "{{ mount_dir | dirname }} /etc/auto.nfs"
+  notify: restart autofs
+
+- name: configure auto.nfs
+  copy:
+    content: "{{ mount_dir | basename }} -fstype=nfs,rw,soft,intr,timeo=300,retrans=3  {{ remote_host }}:{{ remote_dir }}"
+    dest: /etc/auto.nfs
+  notify: restart autofs

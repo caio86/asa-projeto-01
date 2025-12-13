@@ -23,3 +23,9 @@
             shell: /usr/sbin/nologin
             system: true
     - nfs-server
+
+- name: Configurações especificas de db
+  hosts: db
+  become: true
+  roles:
+    - nfs-client
