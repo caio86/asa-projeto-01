@@ -29,3 +29,15 @@
   become: true
   roles:
     - nfs-client
+
+- name: Configurações especificas de app
+  hosts: app
+  become: true
+  roles:
+    - nfs-client
+
+- name: Configurações especificas de cli
+  hosts: cli
+  become: true
+  roles:
+    - nfs-client
