@@ -1,0 +1,43 @@
+- name: Configurar autenticação SSH apenas por chaves
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^#?PasswordAuthentication"
+    line: "PasswordAuthentication no"
+    backup: yes
+  notify:
+    - restart sshd
+
+- name: Desabilitar login root via SSH
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^#?PermitRootLogin"
+    line: "PermitRootLogin no"
+    backup: yes
+  notify:
+    - restart sshd
+
+- name: Permitir apenas grupos vagrant e ifpb
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^#?AllowGroups"
+    line: "AllowGroups {{ allowed_groups | join(' ') }}"
+    backup: yes
+  notify:
+    - restart sshd
+
+- name: Criar arquivo de banner
+  copy:
+    dest: /etc/issue.net
+    content: "{{ banner_message }}"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Configurar banner no SSH
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^#?Banner"
+    line: "Banner /etc/issue.net"
+    backup: yes
+  notify:
+    - restart sshd

@@ -1,0 +1,2 @@
+allowed_groups: ["vagrant", "ifpb"]
+banner_message: "Acesso apenas para pessoas com autorização expressa!!!"

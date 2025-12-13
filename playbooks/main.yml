@@ -5,6 +5,7 @@
     - base
     - user-create
     - time-config
+    - ssh-server
 
 - name: Configurações especificas de arq
   hosts: arq
