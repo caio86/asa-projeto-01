@@ -1,18 +1,30 @@
-- name: Create "ifpb" group
+- name: Create groups
   group:
-    name: ifpb
+    name: "{{ item.group }}"
     state: present
+  loop: "{{ users }}"
 
 - name: Create users
   user:
     name: "{{ item.name }}"
     password: "{{ item.password | password_hash('sha512') }}"
-    groups: "{{ item.groups | default(['ifpb']) }}"
+    groups: "{{ item.group | default(['ifpb']) }}"
     create_home: true
     generate_ssh_key: true
-    shell: /bin/bash
+    shell: "{{ item.shell }}"
+    system: "{{ item.system | default(false) }}"
     state: present
   loop: "{{ users }}"
+  register: user_creation_result
+
+- name: Add generated SSH keys to authorized_keys
+  authorized_key:
+    user: "{{ item.item.name }}"
+    key: "{{ item.ssh_public_key | default(omit) }}"
+    state: present
+    exclusive: false
+  loop: "{{ user_creation_result.results }}"
+  when: item.changed and item.ssh_public_key is defined
 
 - name: Enable sudo for "ifpb" group
   copy:

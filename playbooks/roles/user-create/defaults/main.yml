@@ -1,9 +1,9 @@
 users:
   - name: caio
     password: ifpb
-    groups:
-      - ifpb
+    group: ifpb
+    shell: /bin/bash
   - name: gabriel
     password: ifpb
-    groups:
-      - ifpb
+    group: ifpb
+    shell: /bin/bash
