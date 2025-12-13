@@ -7,6 +7,7 @@
   community.general.lvm_pv:
     device: "{{ item }}"
   loop: "{{ disks }}"
+  when: item not in ansible_lvm.vgs[vg_name].pvs|default([])
 
 - name: Cria Grupo de Volume
   community.general.lvg:
