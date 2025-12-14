@@ -12,11 +12,11 @@
 - name: configure auto.master
   lineinfile:
     path: /etc/auto.master
-    line: "{{ mount_dir | dirname }} /etc/auto.nfs"
+    line: "/- /etc/auto.nfs"
   notify: restart autofs
 
 - name: configure auto.nfs
   copy:
-    content: "{{ mount_dir | basename }} -fstype=nfs,rw,soft,intr,timeo=300,retrans=3  {{ remote_host }}:{{ remote_dir }}"
+    content: "{{ mount_dir }} -fstype=nfs,rw,soft,intr,timeo=300,retrans=3  {{ remote_host }}:{{ remote_dir }}"
     dest: /etc/auto.nfs
   notify: restart autofs
