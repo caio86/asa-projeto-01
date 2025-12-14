@@ -44,10 +44,9 @@
   ansible.builtin.copy:
     dest: /etc/resolv.conf
     content: |
-      nameserver 127.0.0.1
-      nameserver 192.168.56.122
       domain caio.gabriel.devops
       search caio.gabriel.devops
+      nameserver 127.0.0.1
     owner: root
     group: root
     mode: "0644"
