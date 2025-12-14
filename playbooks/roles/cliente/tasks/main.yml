@@ -1,0 +1,23 @@
+- name: Install firefox and xauth
+  package:
+    name:
+      - firefox-esr
+      - xauth
+      - x11-utils
+    status: present
+
+- name: Enable X11Forwarding
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^#?X11Forwarding"
+    line: "X11Forwarding yes"
+    state: present
+  notify: restart ssh
+
+- name: Disable X11UseLocalhost
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^#?X11UseLocalhost"
+    line: "X11UseLocalhost no"
+    state: present
+  notify: restart ssh

@@ -42,4 +42,5 @@
   hosts: cli
   become: true
   roles:
+    - cliente
     - nfs-client
