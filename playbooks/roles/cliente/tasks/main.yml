@@ -4,7 +4,7 @@
       - firefox-esr
       - xauth
       - x11-utils
-    status: present
+    state: present
 
 - name: Enable X11Forwarding
   lineinfile:

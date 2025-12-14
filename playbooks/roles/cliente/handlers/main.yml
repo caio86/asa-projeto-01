@@ -1,4 +1,4 @@
 - name: restart ssh
   service:
     name: sshd
-    status: restarted
+    state: restarted
