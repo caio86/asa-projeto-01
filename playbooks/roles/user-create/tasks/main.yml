@@ -9,9 +9,9 @@
     name: "{{ item.name }}"
     password: "{{ item.password | password_hash('sha512') }}"
     groups: "{{ item.group | default(['ifpb']) }}"
-    create_home: true
-    generate_ssh_key: true
-    shell: "{{ item.shell }}"
+    create_home: "{{ not ( item.system | default(false) ) }}"
+    generate_ssh_key: "{{ not ( item.system | default(false) ) }}"
+    shell: "{{ item.shell | default('/bin/bash')}}"
     system: "{{ item.system | default(false) }}"
     state: present
   loop: "{{ users }}"
