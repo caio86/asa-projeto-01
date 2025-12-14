@@ -51,3 +51,8 @@
     owner: root
     group: root
     mode: "0644"
+
+- name: Make /etc/resolv.conf immutable
+  file:
+    path: /etc/resolv.conf
+    attributes: +i
