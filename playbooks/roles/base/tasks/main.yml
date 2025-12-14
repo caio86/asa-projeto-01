@@ -1,10 +1,10 @@
 - name: update and upgrade system
-  package:
+  apt:
     update_cache: true
     cache_valid_time: 3600
     upgrade: "{{ upgrade }}"
 
 - name: Install NFS client
-  package:
+  apt:
     name: nfs-common
     state: present

@@ -1,5 +1,5 @@
 - name: install autofs
-  package:
+  apt:
     name: autofs
     state: present
 

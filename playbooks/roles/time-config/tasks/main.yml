@@ -1,5 +1,5 @@
 - name: Install Chrony
-  package:
+  apt:
     name: chrony
     state: present
 

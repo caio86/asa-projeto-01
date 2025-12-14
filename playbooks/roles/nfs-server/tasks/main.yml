@@ -1,5 +1,5 @@
 - name: Install nfs server
-  package:
+  apt:
     name: nfs-kernel-server
     state: present
 

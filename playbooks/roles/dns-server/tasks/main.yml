@@ -1,5 +1,5 @@
 - name: Instala o servidor bind9 e bind9utils
-  package:
+  apt:
     name:
       - bind9
       - bind9utils

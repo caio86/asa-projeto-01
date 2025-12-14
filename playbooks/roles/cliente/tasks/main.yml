@@ -1,5 +1,5 @@
 - name: Install firefox and xauth
-  package:
+  apt:
     name:
       - firefox-esr
       - xauth
