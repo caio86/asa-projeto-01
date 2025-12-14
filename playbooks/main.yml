@@ -28,6 +28,7 @@
   hosts: db
   become: true
   roles:
+    - db-server
     - nfs-client
 
 - name: Configurações especificas de app
