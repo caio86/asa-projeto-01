@@ -2,7 +2,9 @@
   hosts: all
   become: true
   roles:
-    - base
+    - role: base
+      vars:
+        upgrade: "no"
     - user-create
     - time-config
     - ssh-server
